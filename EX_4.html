@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Underwater Animal Explorer Registration</title>
+  <style>
+    body {
+      background: linear-gradient(#5fd1f6, #325273);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    form {
+      background: #fff;
+      border-radius: 15px;
+      padding: 28px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(59,190,194,0.18);
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #21476b;
+    }
+
+    .hint {
+      font-weight: 400;
+      font-size: 13px;
+      color: #5d7a8f;
+      margin-top: 6px;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 12px;
+      margin-top: 6px;
+      display: block;
+    }
+
+    input, textarea, select {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #b3eaf6;
+      margin-top: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      box-shadow: 0 0 0 3px rgba(45,140,164,0.08);
+      border-color: #2d8ca4;
+    }
+
+    .invalid {
+      border-color: #e74c3c !important;
+    }
+
+    h2 {
+      color: #0f3b55;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .sea-icon {
+      margin-right: 8px;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+      width: auto;
+      margin-right: 6px;
+      padding: 0;
+      vertical-align: middle;
+    }
+
+    .radio-row {
+      display:flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 6px;
+    }
+
+    .controls-row {
+      display:flex;
+      gap: 12px;
+      align-items:center;
+    }
+
+    .file-preview {
+      margin-top: 10px;
+      max-width: 100%;
+      border-radius: 8px;
+      display: none;
+      border: 1px solid #d7f0f5;
+    }
+
+    .pw-strength {
+      height: 8px;
+      width: 100%;
+      background: #e9f6f9;
+      border-radius: 6px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .pw-strength > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      transition: width 200ms ease;
+      background: linear-gradient(90deg, #f1c40f, #2ecc71);
+    }
+
+    input[type="submit"] {
+      background: #2d8ca4;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 0;
+      font-size: 17px;
+      margin-top: 18px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .success {
+      padding: 12px;
+      margin-top: 12px;
+      background: #e6fffb;
+      color: #086a66;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #3b6a7a;
+    }
+
+  </style>
+</head>
+<body>
+  <form id="explorerForm" novalidate>
+    <h2>Aqua Explorer Sign-Up</h2>
+
+    <label for="name"><span class="sea-icon">🐬</span>Explorer Name:</label>
+    <input type="text" id="name" name="name" required aria-describedby="name-error" />
+    <span id="name-error" class="error" aria-live="polite"></span>
+
+    <label for="favAnimal"><span class="sea-icon">🐙</span>Favorite Sea Animal:</label>
+    <input type="text" id="favAnimal" name="favAnimal" required aria-describedby="favAnimal-error" placeholder="e.g. Octopus" />
+    <span id="favAnimal-error" class="error" aria-live="polite"></span>
+
+    <label for="password"><span class="sea-icon">🔒</span>Password:</label>
+    <input type="password" id="password" name="password" required aria-describedby="password-error" />
+    <div class="pw-strength" aria-hidden="true"><span id="pw-bar"></span></div>
+    <span id="password-error" class="error" aria-live="polite"></span>
+    <div class="hint small">Minimum 8 chars, include uppercase, lowercase and a number.</div>
+
+    <label for="confirm-password"><span class="sea-icon">🔒</span>Confirm Password:</label>
+    <input type="password" id="confirm-password" name="confirmPassword" required aria-describedby="confirm-password-error" />
+    <span id="confirm-password-error" class="error" aria-live="polite"></span>
+
+    <label><span class="sea-icon">🧭</span>Expedition Type:</label>
+    <div class="radio-row" role="radiogroup" aria-labelledby="expedition-group-label">
+      <label><input type="radio" name="expedition" value="coral" required /> Coral Reef</label>
+      <label><input type="radio" name="expedition" value="deep" /> Deep Ocean</label>
+      <label><input type="radio" name="expedition" value="rock" /> Rocky Coast</label>
+    </div>
+    <span id="expedition-error" class="error" aria-live="polite"></span>
+
+    <label for="ocean"><span class="sea-icon">🌍</span>Home Ocean:</label>
+    <select id="ocean" name="ocean" required aria-describedby="ocean-error">
+      <option value="">Select...</option>
+      <option>Pacific</option>
+      <option>Atlantic</option>
+      <option>Indian</option>
+      <option>Arctic</option>
+      <option>Southern</option>
+    </select>
+    <span id="ocean-error" class="error" aria-live="polite"></span>
+
+    <label for="email"><span class="sea-icon">✉️</span>Email Address:</label>
+    <input type="email" id="email" name="email" required aria-describedby="email-error" placeholder="you@example.com" />
+    <span id="email-error" class="error" aria-live="polite"></span>
+
+    <label for="dive_date"><span class="sea-icon">🎂</span>Date of First Dive:</label>
+    <input type="date" id="dive_date" name="dive_date" required aria-describedby="dive_date-error" />
+    <span id="dive_date-error" class="error" aria-live="polite"></span>
+
+    <label for="photo"><span class="sea-icon">📷</span>Upload Sea Snapshot:</label>
+    <input type="file" id="photo" name="photo" accept="image/*" required aria-describedby="photo-error" />
+    <span id="photo-error" class="error" aria-live="polite"></span>
+    <img id="photo-preview" class="file-preview" alt="Selected photo preview" />
+
+    <label for="fact"><span class="sea-icon">💡</span>Your Best Sea Fact (max 100 chars):</label>
+    <textarea id="fact" name="fact" maxlength="100" placeholder="E.g. Seahorses can swim upright!"></textarea>
+    <div class="hint small" id="fact-count">0 / 100</div>
+
+    <input type="submit" id="submitBtn" value="Join The Expedition" />
+    <div class="success" id="successBox" role="status" aria-live="polite"></div>
+  </form>
+
+  <script>
+    (function () {
+      const form = document.getElementById('explorerForm');
+
+      const nameEl = document.getElementById('name');
+      const favAnimalEl = document.getElementById('favAnimal');
+      const passwordEl = document.getElementById('password');
+      const confirmEl = document.getElementById('confirm-password');
+      const emailEl = document.getElementById('email');
+      const diveDateEl = document.getElementById('dive_date');
+      const photoEl = document.getElementById('photo');
+      const factEl = document.getElementById('fact');
+      const pwBar = document.getElementById('pw-bar');
+      const previewImg = document.getElementById('photo-preview');
+
+      const MAX_PHOTO_BYTES = 2 * 1024 * 1024; // 2MB
+
+      // Utility to show error
+      function setError(elId, message, fieldEl) {
+        const span = document.getElementById(elId);
+        span.innerText = message || '';
+        if (fieldEl) {
+          if (message) fieldEl.classList.add('invalid');
+          else fieldEl.classList.remove('invalid');
+        }
+      }
+
+      function validateName() {
+        const v = nameEl.value.trim();
+        if (v.length < 4) {
+          setError('name-error', 'Name must be at least 4 characters.', nameEl);
+          return false;
+        }
+        setError('name-error', '', nameEl);
+        return true;
+      }
+
+      function validateFavAnimal() {
+        const v = favAnimalEl.value.trim();
+        // allow letters and spaces (basic); adjust if you want unicode letters
+        if (!/^[A-Za-z\s]{3,}$/.test(v)) {
+          setError('favAnimal-error', 'Use only letters and spaces (min 3 chars).', favAnimalEl);
+          return false;
+        }
+        setError('favAnimal-error', '', favAnimalEl);
+        return true;
+      }
+
+      function calcPasswordStrength(pw) {
+        let score = 0;
+        if (pw.length >= 8) score++;
+        if (/[a-z]/.test(pw)) score++;
+        if (/[A-Z]/.test(pw)) score++;
+        if (/\d/.test(pw)) score++;
+        if (/[^A-Za-z0-9]/.test(pw)) score++;
+        return score; // 0..5
+      }
+
+      function updatePwBar() {
+        const score = calcPasswordStrength(passwordEl.value);
+        const percent = (score / 5) * 100;
+        pwBar.style.width = percent + '%';
+      }
+
+      function validatePassword() {
+        const pw = passwordEl.value;
+        if (pw.length < 8 || !/[A-Z]/.test(pw) || !/[a-z]/.test(pw) || !/\d/.test(pw)) {
+          setError('password-error', 'Password must be min 8 chars and include upper, lower and a number.', passwordEl);
+          updatePwBar();
+          return false;
+        }
+        setError('password-error', '', passwordEl);
+        updatePwBar();
+        return true;
+      }
+
+      function validateConfirm() {
+        if (confirmEl.value !== passwordEl.value) {
+          setError('confirm-password-error', 'Passwords do not match.', confirmEl);
+          return false;
+        }
+        setError('confirm-password-error', '', confirmEl);
+        return true;
+      }
+
+      function validateExpedition() {
+        const expedition = document.querySelector('input[name="expedition"]:checked');
+        if (!expedition) {
+          setError('expedition-error', 'Select your expedition.', null);
+          return false;
+        }
+        setError('expedition-error', '', null);
+        return true;
+      }
+
+      function validateOcean() {
+        const v = document.getElementById('ocean').value;
+        if (!v) {
+          setError('ocean-error', 'Please choose your home ocean.', document.getElementById('ocean'));
+          return false;
+        }
+        setError('ocean-error', '', document.getElementById('ocean'));
+        return true;
+      }
+
+      function validateEmail() {
+        const v = emailEl.value.trim();
+        if (!v) {
+          setError('email-error', 'Email is required.', emailEl);
+          return false;
+        }
+        // basic email validation (HTML input already helps)
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+          setError('email-error', 'Enter a valid email address.', emailEl);
+          return false;
+        }
+        setError('email-error', '', emailEl);
+        return true;
+      }
+
+      function validateDiveDate() {
+        const v = diveDateEl.value;
+        if (!v) {
+          setError('dive_date-error', 'Please enter the date of your first dive.', diveDateEl);
+          return false;
+        }
+        const selected = new Date(v);
+        const today = new Date();
+        // Normalize times for fairness
+        selected.setHours(0,0,0,0);
+        today.setHours(0,0,0,0);
+        if (selected > today) {
+          setError('dive_date-error', 'Date of first dive cannot be in the future.', diveDateEl);
+          return false;
+        }
+        setError('dive_date-error', '', diveDateEl);
+        return true;
+      }
+
+      function validatePhoto() {
+        const file = photoEl.files[0];
+        if (!file) {
+          setError('photo-error', 'Please upload a snapshot.', photoEl);
+          previewImg.style.display = 'none';
+          previewImg.src = '';
+          return false;
+        }
+        if (!file.type.startsWith('image/')) {
+          setError('photo-error', 'File must be an image.', photoEl);
+          previewImg.style.display = 'none';
+          previewImg.src = '';
+          return false;
+        }
+        if (file.size > MAX_PHOTO_BYTES) {
+          setError('photo-error', 'File is too large (max 2MB).', photoEl);
+          previewImg.style.display = 'none';
+          previewImg.src = '';
+          return false;
+        }
+
+        // show preview
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImg.src = e.target.result;
+          previewImg.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+
+        setError('photo-error', '', photoEl);
+        return true;
+      }
+
+      function updateFactCount() {
+        const len = factEl.value.length;
+        document.getElementById('fact-count').innerText = `${len} / 100`;
+      }
+
+      // Live validation
+      nameEl.addEventListener('input', validateName);
+      favAnimalEl.addEventListener('input', validateFavAnimal);
+      passwordEl.addEventListener('input', () => { updatePwBar(); validatePassword(); validateConfirm(); });
+      confirmEl.addEventListener('input', validateConfirm);
+      emailEl.addEventListener('input', validateEmail);
+      diveDateEl.addEventListener('change', validateDiveDate);
+      photoEl.addEventListener('change', validatePhoto);
+      factEl.addEventListener('input', updateFactCount);
+      document.getElementById('ocean').addEventListener('change', validateOcean);
+      Array.from(document.querySelectorAll('input[name="expedition"]')).forEach(el => el.addEventListener('change', validateExpedition));
+
+      // Form submit
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+
+        const allOk = [
+          validateName(),
+          validateFavAnimal(),
+          validatePassword(),
+          validateConfirm(),
+          validateExpedition(),
+          validateOcean(),
+          validateEmail(),
+          validateDiveDate(),
+          validatePhoto()
+        ].every(Boolean);
+
+        if (!allOk) {
+          // Focus the first error field
+          const firstError = document.querySelector('.invalid') || document.querySelector('.error:empty') === null;
+          // no need to alert—errors are inline
+          return;
+        }
+
+        // All valid -> provide in-page success and open expedition resource in a new tab
+        const expedition = document.querySelector('input[name="expedition"]:checked').value;
+        let url = '';
+        if (expedition === 'coral') url = 'https://en.wikipedia.org/wiki/Coral_reef';
+        else if (expedition === 'deep') url = 'https://en.wikipedia.org/wiki/Deep_sea';
+        else if (expedition === 'rock') url = 'https://en.wikipedia.org/wiki/Rocky_shore';
+
+        // Open resource in new tab and show success box
+        if (url) window.open(url, '_blank', 'noopener');
+
+        const successBox = document.getElementById('successBox');
+        successBox.innerHTML = `<strong>Welcome aboard, ${escapeHtml(nameEl.value)}!</strong> You are registered for the <em>${escapeHtml(expedition)}</em> expedition. A helpful page was opened in a new tab.`;
+        successBox.style.display = 'block';
+
+        // (Optional) Clear sensitive fields but keep preview
+        passwordEl.value = '';
+        confirmEl.value = '';
+        pwBar.style.width = '0%';
+      });
+
+      // small helper to escape text for display
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      // Initialize counters / state
+      updatePwBar();
+      updateFactCount();
+
+    })();
+  </script>
+</body>
+</html>
